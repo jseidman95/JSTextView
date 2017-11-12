@@ -8,11 +8,16 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController
+{
 
-    override func viewDidLoad() {
+    @IBOutlet weak var textView: JSTextView!
+    
+    override func viewDidLoad()
+    {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
+        textView.setLabelArray(attributeName: NSAttributedStringKey.font, attributeValue: UIFont(name: "Verdana-Bold", size: 19.2)!)
     }
 
     override func didReceiveMemoryWarning() {
