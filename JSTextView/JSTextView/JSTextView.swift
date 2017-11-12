@@ -124,9 +124,25 @@ extension JSTextView: UIGestureRecognizerDelegate
 
 extension UILabel
 {
-    func layoutLabelView(corner: UIRectCorner, radius:CGFloat)
+    func layoutLabelView(corners: UIRectCorner, radius:CGFloat)
     {
-        
+      
+      // Apply corner radius for background fill only
+      let cornerRadii = CGSize(width: radius, height: radius)
+      let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: cornerRadii)
+      
+      let mask = CAShapeLayer()
+      mask.path = path.cgPath
+      
+      layer.mask = mask
+      
+      // Apply shadow with rounded path
+      layer.shadowColor = UIColor.black.cgColor
+      layer.shadowOpacity = 0.30
+      layer.shadowRadius = 2.0
+      layer.shadowOffset = CGSize(width: 0.5, height: 2.0)
+      layer.shadowPath = path.cgPath
+      
     }
 }
 
