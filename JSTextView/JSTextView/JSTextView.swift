@@ -14,8 +14,8 @@ class JSTextView: UITextView
     
   private let jumpingPress   = UILongPressGestureRecognizer()
   private var jumpLabelArray = [NSRange]()
-  private var segmentLength  = CGFloat()
   private var jumpLabel      = UILabel()
+  private var startedJumping = false
   
   //INITIALIZERS
     
@@ -52,7 +52,7 @@ class JSTextView: UITextView
   private func createLabelArray<T:Equatable> (attributeName:NSAttributedStringKey, attributeValue:T)
   {
     let storage = self.textStorage
-        
+   
     storage.enumerateAttribute(attributeName, in: NSMakeRange(0, textStorage.length), options: [], using:
         {
             (value,range,stop) in
@@ -65,13 +65,13 @@ class JSTextView: UITextView
   
   private func jumpToValueAt(yPosition:CGFloat, begin:Bool)
   {
-    let jumpIndex = Int(yPosition/segmentLength)
-    
+    let jumpIndex = Int(yPosition / self.frame.height * CGFloat(self.jumpLabelArray.count))
     if jumpIndex >= 0 && jumpIndex < jumpLabelArray.count
     {
-        let startPosition = self.position(from: self.beginningOfDocument, offset: jumpLabelArray[jumpIndex].lowerBound)
-        let endPosition   = self.position(from: self.beginningOfDocument, offset: jumpLabelArray[jumpIndex].upperBound)
-        let textRange     = self.textRange(from: startPosition! , to: endPosition!)
+        self.startedJumping = true
+        let startPosition   = self.position(from: self.beginningOfDocument, offset: jumpLabelArray[jumpIndex].lowerBound)
+        let endPosition     = self.position(from: self.beginningOfDocument, offset: jumpLabelArray[jumpIndex].upperBound)
+        let textRange       = self.textRange(from: startPosition! , to: endPosition!)
         
         jumpLabel.text = self.text(in: textRange!)
         jumpLabel.sizeToFit()
@@ -89,11 +89,6 @@ class JSTextView: UITextView
   public func setLabelArray<T:Equatable> (attributeName:NSAttributedStringKey, attributeValue:T)
   {
     createLabelArray(attributeName: attributeName, attributeValue: attributeValue)
-    
-    if jumpLabelArray.count > 0
-    {
-        segmentLength = self.frame.height / CGFloat(jumpLabelArray.count)
-    }
   }
     
   //GESTURE ACTION FUNCTIONS
@@ -101,17 +96,17 @@ class JSTextView: UITextView
   @objc func handleLongPressGesture(gesture: UILongPressGestureRecognizer)
   {
     let xPosition = jumpingPress.location(in: self).x
-    let yPosition = jumpingPress.location(in: superview).y
-    
+    let yPosition = jumpingPress.location(in: superview).y - self.frame.minY
+
     // Check if touch is in hot zone and the jumping press state is began
-    if jumpingPress.state == .began && xPosition >= self.frame.width * 0.9 && xPosition <= self.frame.maxX
+    if jumpingPress.state == .began && xPosition >= self.frame.minX + self.frame.width * 0.9 && xPosition <= self.frame.minX + self.frame.width
     {
       self.isUserInteractionEnabled = false
       jumpToValueAt(yPosition: yPosition, begin: true)
     }
     
     //check if the jumping press state is changed
-    else if jumpingPress.state == .changed
+    else if startedJumping && jumpingPress.state == .changed
     {
       jumpToValueAt(yPosition: yPosition, begin: false)
     }
@@ -120,9 +115,9 @@ class JSTextView: UITextView
     else if jumpingPress.state == .ended || jumpingPress.state == .cancelled || jumpingPress.state == .failed
     {
       self.isUserInteractionEnabled = true
+      self.startedJumping           = false
       jumpLabel.removeFromSuperview()
     }
-    
   }
   
 }
