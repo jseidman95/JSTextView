@@ -38,6 +38,8 @@ class JSTextView: UITextView
   {
     // Add Long press
     jumpingPress.addTarget(self, action: #selector(handleLongPressGesture))
+    jumpingPress.cancelsTouchesInView = false
+    jumpingPress.delegate = self
     self.addGestureRecognizer(jumpingPress)
   }
     
@@ -106,6 +108,10 @@ class JSTextView: UITextView
     {
       self.isUserInteractionEnabled = true
     }
+    
+  }
+  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //print("MOVED")
   }
   
   
