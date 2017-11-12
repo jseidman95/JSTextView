@@ -14,8 +14,9 @@ class JSTextView: UITextView
 
   private let jumpingPress   = UILongPressGestureRecognizer()
   private var jumpLabelArray = [NSRange]()
+  private var jumpLabel      = UILabel()
+  private var startedJumping = false
   private var segmentLength  = CGFloat()
-  private var jumpLabel      = jumpingLabel()
   private var jumpLabelColor = UIColor(red: 26/255.0, green: 140/255.0, blue: 255/255.0, alpha: 1)
   
   //INITIALIZERS
@@ -142,3 +143,4 @@ extension JSTextView: UIGestureRecognizerDelegate
     return true
   }
 }
+
