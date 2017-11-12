@@ -10,15 +10,18 @@ import UIKit
 
 class JSTextView: UITextView
 {
-  //PRIVATE VARIABLES
+  // PRIVATE VARIABLES
   let jumpingPan: UIPanGestureRecognizer
   let jumpingPress: UILongPressGestureRecognizer
   
+  // Pan Active Bool
+  var panActive: Bool
   
   required init?(coder aDecoder: NSCoder)
   {
     jumpingPan = UIPanGestureRecognizer()
     jumpingPress = UILongPressGestureRecognizer()
+    panActive = false
     super.init(coder: aDecoder)
     startUp()
   }
@@ -27,6 +30,7 @@ class JSTextView: UITextView
   {
     jumpingPan = UIPanGestureRecognizer()
     jumpingPress = UILongPressGestureRecognizer()
+    panActive = false
     super.init(frame: frame, textContainer: textContainer)
     startUp()
   }
@@ -54,10 +58,18 @@ class JSTextView: UITextView
   }
   @objc func handlePanGesture(gesture: UIPanGestureRecognizer) {
     // Perform pan
-    print("Panning")
+    
+    if panActive
+    {
+      print("Panning")
+
+    }
+    
     if jumpingPan.state == .ended || jumpingPan.state == .cancelled || jumpingPan.state == .failed {
       print("Pan and Press ended")
       self.isScrollEnabled  = true
+      self.jumpingPress.isEnabled = true
+      panActive = false
     }
     
   }
@@ -72,6 +84,8 @@ class JSTextView: UITextView
     if hotZone.contains(loc) {
       print("Go for pan")
       self.isScrollEnabled  = false
+      self.jumpingPress.isEnabled = false
+      panActive = true
     }
     
   }
