@@ -15,6 +15,7 @@
 		428B1E431FB63ACC008C9A64 /* JSTextViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428B1E421FB63ACC008C9A64 /* JSTextViewTests.swift */; };
 		428B1E4E1FB63ACC008C9A64 /* JSTextViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428B1E4D1FB63ACC008C9A64 /* JSTextViewUITests.swift */; };
 		428B1E5C1FB63ADF008C9A64 /* JSTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 428B1E5B1FB63ADF008C9A64 /* JSTextView.swift */; };
+		C01BC6261FB8842300378458 /* jumpingLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C01BC6251FB8842300378458 /* jumpingLabel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		428B1E4D1FB63ACC008C9A64 /* JSTextViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSTextViewUITests.swift; sourceTree = "<group>"; };
 		428B1E4F1FB63ACC008C9A64 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		428B1E5B1FB63ADF008C9A64 /* JSTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JSTextView.swift; sourceTree = "<group>"; };
+		C01BC6251FB8842300378458 /* jumpingLabel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = jumpingLabel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +105,7 @@
 				428B1E2F1FB63ACC008C9A64 /* ViewController.swift */,
 				428B1E311FB63ACC008C9A64 /* Main.storyboard */,
 				428B1E5B1FB63ADF008C9A64 /* JSTextView.swift */,
+				C01BC6251FB8842300378458 /* jumpingLabel.swift */,
 				428B1E341FB63ACC008C9A64 /* Assets.xcassets */,
 				428B1E361FB63ACC008C9A64 /* LaunchScreen.storyboard */,
 				428B1E391FB63ACC008C9A64 /* Info.plist */,
@@ -265,6 +268,7 @@
 				428B1E5C1FB63ADF008C9A64 /* JSTextView.swift in Sources */,
 				428B1E301FB63ACC008C9A64 /* ViewController.swift in Sources */,
 				428B1E2E1FB63ACC008C9A64 /* AppDelegate.swift in Sources */,
+				C01BC6261FB8842300378458 /* jumpingLabel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

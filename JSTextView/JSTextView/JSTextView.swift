@@ -11,11 +11,13 @@ import UIKit
 class JSTextView: UITextView
 {
   //PRIVATE VARIABLES
-    
+
   private let jumpingPress   = UILongPressGestureRecognizer()
   private var jumpLabelArray = [NSRange]()
   private var jumpLabel      = UILabel()
   private var startedJumping = false
+  private var segmentLength  = CGFloat()
+  private var jumpLabelColor = UIColor(red: 26/255.0, green: 140/255.0, blue: 255/255.0, alpha: 1)
   
   //INITIALIZERS
     
@@ -33,6 +35,12 @@ class JSTextView: UITextView
     startUp()
   }
   
+  required init(frame: CGRect, textContainer: NSTextContainer?, labelColor: UIColor) {
+    super.init(frame: frame, textContainer: textContainer)
+    jumpLabelColor = labelColor
+    startUp()
+  }
+  
   //PRIVATE FUNCTIONS
     
   private func startUp()
@@ -44,13 +52,16 @@ class JSTextView: UITextView
     self.addGestureRecognizer(jumpingPress)
     
     // Make Jump Label
-    jumpLabel = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: 20.0, height: 20.0))
-    jumpLabel.backgroundColor = UIColor.blue
+    //jumpLabel = jumpingLabel(frame: CGRect(x: 0.0, y: 0.0, width: 20.0, height: 20.0))
+    jumpLabel = jumpingLabel(padding: UIEdgeInsets(top: 10, left: 5, bottom: 10, right: 5))
+    jumpLabel.layer.backgroundColor = jumpLabelColor.cgColor
+    jumpLabel.font = UIFont.systemFont(ofSize: 20)
     jumpLabel.textAlignment = .left
   }
     
   private func createLabelArray<T:Equatable> (attributeName:NSAttributedStringKey, attributeValue:T)
   {
+    
     let storage = self.textStorage
    
     storage.enumerateAttribute(attributeName, in: NSMakeRange(0, textStorage.length), options: [], using:
@@ -77,7 +88,9 @@ class JSTextView: UITextView
         jumpLabel.sizeToFit()
         
         jumpLabel.frame.size.width = jumpLabel.frame.width * 2
+        jumpLabel.frame.size.height = jumpLabel.frame.height * 2
         jumpLabel.frame.origin = CGPoint(x: self.frame.maxX - jumpLabel.frame.width, y: yPosition)
+      
         if begin { self.superview?.addSubview(jumpLabel) }
         
         self.scrollRectToVisible(firstRect(for: textRange!), animated: false)
@@ -129,13 +142,5 @@ extension JSTextView: UIGestureRecognizerDelegate
   {
     return true
   }
-}
-
-extension UILabel
-{
-    func layoutLabelView(corner: UIRectCorner, radius:CGFloat)
-    {
-        
-    }
 }
 
