@@ -15,6 +15,7 @@ class JSTextView: UITextView
   private let jumpingPress   = UILongPressGestureRecognizer()
   private var jumpLabelArray = [NSRange]()
   private var segmentLength  = CGFloat()
+  private var jumpLabel      = UILabel()
   
   //INITIALIZERS
     
@@ -41,6 +42,11 @@ class JSTextView: UITextView
     jumpingPress.cancelsTouchesInView = false
     jumpingPress.delegate = self
     self.addGestureRecognizer(jumpingPress)
+    
+    // Make Jump Label
+    jumpLabel = UILabel(frame: CGRect(x: 0.0, y: 0.0, width: 20.0, height: 20.0))
+    jumpLabel.backgroundColor = UIColor.blue
+    jumpLabel.textAlignment = .left
   }
     
   private func createLabelArray<T:Equatable> (attributeName:NSAttributedStringKey, attributeValue:T)
@@ -57,7 +63,7 @@ class JSTextView: UITextView
         })
   }
   
-  private func jumpToValueAt(yPosition:CGFloat)
+  private func jumpToValueAt(yPosition:CGFloat, begin:Bool)
   {
     let jumpIndex = Int(yPosition/segmentLength)
     
@@ -66,7 +72,14 @@ class JSTextView: UITextView
         let startPosition = self.position(from: self.beginningOfDocument, offset: jumpLabelArray[jumpIndex].lowerBound)
         let endPosition   = self.position(from: self.beginningOfDocument, offset: jumpLabelArray[jumpIndex].upperBound)
         let textRange     = self.textRange(from: startPosition! , to: endPosition!)
-        print("jumping to \(jumpIndex)")
+        
+        jumpLabel.text = self.text(in: textRange!)
+        jumpLabel.sizeToFit()
+        
+        jumpLabel.frame.size.width = jumpLabel.frame.width * 2
+        jumpLabel.frame.origin = CGPoint(x: self.frame.maxX - jumpLabel.frame.width, y: yPosition)
+        if begin { self.superview?.addSubview(jumpLabel) }
+        
         self.scrollRectToVisible(firstRect(for: textRange!), animated: false)
     }
   }
@@ -94,19 +107,20 @@ class JSTextView: UITextView
     if jumpingPress.state == .began && xPosition >= self.frame.width * 0.9 && xPosition <= self.frame.maxX
     {
       self.isUserInteractionEnabled = false
-      jumpToValueAt(yPosition: yPosition)
+      jumpToValueAt(yPosition: yPosition, begin: true)
     }
     
     //check if the jumping press state is changed
     else if jumpingPress.state == .changed
     {
-      jumpToValueAt(yPosition: yPosition)
+      jumpToValueAt(yPosition: yPosition, begin: false)
     }
     
     //check if the jumping press state is ending
     else if jumpingPress.state == .ended || jumpingPress.state == .cancelled || jumpingPress.state == .failed
     {
       self.isUserInteractionEnabled = true
+      jumpLabel.removeFromSuperview()
     }
     
   }
