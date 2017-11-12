@@ -10,41 +10,75 @@ import UIKit
 
 class JSTextView: UITextView
 {
-    //PRIVATE VARIABLES
-    private let newView = UIView(frame: CGRect(x: 0.0, y: 0.0, width: 200.0, height: 200.0))
+  //PRIVATE VARIABLES
+  let jumpingPan: UIPanGestureRecognizer
+  let jumpingPress: UILongPressGestureRecognizer
+  
+  
+  required init?(coder aDecoder: NSCoder)
+  {
+    jumpingPan = UIPanGestureRecognizer()
+    jumpingPress = UILongPressGestureRecognizer()
+    super.init(coder: aDecoder)
+    startUp()
+  }
+  
+  override init(frame: CGRect, textContainer: NSTextContainer?)
+  {
+    jumpingPan = UIPanGestureRecognizer()
+    jumpingPress = UILongPressGestureRecognizer()
+    super.init(frame: frame, textContainer: textContainer)
+    startUp()
+  }
+  
+  //PRIVATE FUNCTIONS
+  private func startUp()
+  {
+    // Set up and add pan and press gesture rec.
     
-    required init?(coder aDecoder: NSCoder)
-    {
-        super.init(coder: aDecoder)
-        
-        startUp()
+    // Long press
+    jumpingPress.addTarget(self, action: #selector(handleLongPressGesture))
+    self.addGestureRecognizer(jumpingPress)
+    
+    // Pan
+    jumpingPan.addTarget(self, action: #selector(handlePanGesture))
+    self.addGestureRecognizer(jumpingPan)
+    
+    // Set enabled to false until long press activates it
+    self.jumpingPan.isEnabled = false
+    
+    
+  }
+  @objc func handlePanGesture(gesture: UIPanGestureRecognizer) {
+    // Perform pan
+  }
+  
+  @objc func handleLongPressGesture(gesture: UILongPressGestureRecognizer) {
+    let loc = jumpingPress.location(in: self)
+    
+    // Create hotZone
+    let hotZone = CGRect(x: self.frame.width-self.frame.width/10, y: 0, width: self.frame.width/10, height: self.frame.height)
+    
+    // Check if touch is in hot zone
+    if hotZone.contains(loc) {
+      print("Go for pan")
+      self.isScrollEnabled = false
+      self.jumpingPan.isEnabled = true
     }
     
-    override init(frame: CGRect, textContainer: NSTextContainer?)
-    {
-        super.init(frame: frame, textContainer: textContainer)
-        
-        startUp()
+    // Check for
+    if jumpingPress.state == .ended || jumpingPress.state == .cancelled || jumpingPress.state == .failed {
+      print("Pan and Press ended")
+      self.isScrollEnabled = true
+      self.jumpingPress.isEnabled = false
     }
-    
-    //PRIVATE FUNCTIONS
-    private func startUp()
-    {
-        //configure new view
-        newView.backgroundColor = UIColor.blue
-    }
-    
-    override func didMoveToSuperview()
-    {
-        self.superview?.addSubview(newView)
-        
-        //make constraints
-        newView.translatesAutoresizingMaskIntoConstraints = false
-        
-        self.superview?.addConstraint(NSLayoutConstraint(item: newView, attribute: .width, relatedBy: .equal, toItem: self, attribute: .width, multiplier: 0.1, constant: 0))
-        self.superview?.addConstraint(NSLayoutConstraint(item: newView, attribute: .height, relatedBy: .equal, toItem: self, attribute: .height, multiplier: 1, constant: 0))
-        self.superview?.addConstraint(NSLayoutConstraint(item: newView, attribute: .top, relatedBy: .equal, toItem: self, attribute: .top, multiplier: 1, constant: 0))
-        self.superview?.addConstraint(NSLayoutConstraint(item: newView, attribute: .bottom, relatedBy: .equal, toItem: self, attribute: .bottom, multiplier: 1, constant: 0))
-        self.superview?.addConstraint(NSLayoutConstraint(item: newView, attribute: .right, relatedBy: .equal, toItem: self, attribute: .right, multiplier: 1, constant: 0))
-    }
+  }
+  
+  
 }
+extension JSTextView: UIGestureRecognizerDelegate {
+  func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+    return true
+  }
+}
+
