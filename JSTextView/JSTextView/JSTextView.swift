@@ -35,22 +35,31 @@ class JSTextView: UITextView
   private func startUp()
   {
     // Set up and add pan and press gesture rec.
-    
+    self.isSelectable = false
     // Long press
     jumpingPress.addTarget(self, action: #selector(handleLongPressGesture))
+    jumpingPress.cancelsTouchesInView = false
+    jumpingPress.delegate = self
     self.addGestureRecognizer(jumpingPress)
     
     // Pan
     jumpingPan.addTarget(self, action: #selector(handlePanGesture))
+    jumpingPan.delegate = self
     self.addGestureRecognizer(jumpingPan)
     
     // Set enabled to false until long press activates it
-    self.jumpingPan.isEnabled = false
+    //self.jumpingPan.isEnabled = false
     
     
   }
   @objc func handlePanGesture(gesture: UIPanGestureRecognizer) {
     // Perform pan
+    print("Panning")
+    if jumpingPan.state == .ended || jumpingPan.state == .cancelled || jumpingPan.state == .failed {
+      print("Pan and Press ended")
+      self.isScrollEnabled  = true
+    }
+    
   }
   
   @objc func handleLongPressGesture(gesture: UILongPressGestureRecognizer) {
@@ -62,16 +71,12 @@ class JSTextView: UITextView
     // Check if touch is in hot zone
     if hotZone.contains(loc) {
       print("Go for pan")
-      self.isScrollEnabled = false
-      self.jumpingPan.isEnabled = true
+      self.isScrollEnabled  = false
     }
     
-    // Check for
-    if jumpingPress.state == .ended || jumpingPress.state == .cancelled || jumpingPress.state == .failed {
-      print("Pan and Press ended")
-      self.isScrollEnabled = true
-      self.jumpingPress.isEnabled = false
-    }
+  }
+  override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+    //print("MOVED")
   }
   
   
