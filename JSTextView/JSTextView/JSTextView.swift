@@ -16,7 +16,6 @@ class JSTextView: UITextView
   private var jumpLabelArray = [NSRange]()
   private var jumpLabel      = UILabel()
   private var startedJumping = false
-  private var segmentLength  = CGFloat()
   private var jumpLabelColor = UIColor(red: 26/255.0, green: 140/255.0, blue: 255/255.0, alpha: 1)
   
   //INITIALIZERS
@@ -67,6 +66,7 @@ class JSTextView: UITextView
     storage.enumerateAttribute(attributeName, in: NSMakeRange(0, textStorage.length), options: [], using:
         {
             (value,range,stop) in
+                print((attributeValue as! UIFont).pointSize)
                 if value as? T == attributeValue
                 {
                     jumpLabelArray.append(range)
@@ -77,6 +77,7 @@ class JSTextView: UITextView
   private func jumpToValueAt(yPosition:CGFloat, begin:Bool)
   {
     let jumpIndex = Int(yPosition / self.frame.height * CGFloat(self.jumpLabelArray.count))
+
     if jumpIndex >= 0 && jumpIndex < jumpLabelArray.count
     {
         self.startedJumping = true
@@ -102,6 +103,8 @@ class JSTextView: UITextView
   public func setLabelArray<T:Equatable> (attributeName:NSAttributedStringKey, attributeValue:T)
   {
     createLabelArray(attributeName: attributeName, attributeValue: attributeValue)
+    
+    print(jumpLabelArray)
   }
     
   //GESTURE ACTION FUNCTIONS
