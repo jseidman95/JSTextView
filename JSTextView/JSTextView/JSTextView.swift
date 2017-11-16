@@ -12,8 +12,8 @@ class JSTextView: UITextView
 {
   //PRIVATE VARIABLES
 
-  private let jumpingPress   = UILongPressGestureRecognizer()
-  private var jumpLabelArray = [NSRange]()
+  private let jumpingPress   = UILongPressGestureRecognizer() //The long press which activates the jump scroll
+  private var jumpLabelArray = [NSRange]()                    //The array of ranges that the user can jump to
   private var jumpLabel      = UILabel()
   private var startedJumping = false
   private var jumpLabelColor = UIColor(red: 26/255.0, green: 140/255.0, blue: 255/255.0, alpha: 1)
@@ -92,7 +92,16 @@ class JSTextView: UITextView
         jumpLabel.frame.size.height = jumpLabel.frame.height * 2
         jumpLabel.frame.origin = CGPoint(x: self.frame.maxX - jumpLabel.frame.width, y: yPosition)
       
-        if begin { self.superview?.addSubview(jumpLabel) }
+        if begin
+        {
+            self.superview?.addSubview(jumpLabel)
+            jumpLabel.frame.origin = CGPoint(x: self.frame.maxX + jumpLabel.frame.width, y: yPosition)
+            
+            UIView.animate(withDuration: 0.15, animations:
+                {
+                    self.jumpLabel.frame.origin = CGPoint(x: self.frame.maxX - self.jumpLabel.frame.width, y: yPosition)
+                })
+        }
         
         self.scrollRectToVisible(firstRect(for: textRange!), animated: false)
     }
@@ -132,7 +141,15 @@ class JSTextView: UITextView
     {
       self.isUserInteractionEnabled = true
       self.startedJumping           = false
-      jumpLabel.removeFromSuperview()
+        
+      UIView.animate(withDuration: 0.15, delay: 0.0, options: [], animations:
+        {
+           self.jumpLabel.frame.origin = CGPoint(x: self.frame.maxX + self.jumpLabel.frame.width, y: yPosition)
+        },completion:
+        {
+           (completed) in
+            if completed {self.jumpLabel.removeFromSuperview()}
+        })
     }
   }
   
