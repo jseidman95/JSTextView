@@ -8,7 +8,7 @@
 
 import UIKit
 
-class jumpingLabel: UILabel {
+class JumpingLabel: UILabel {
 
   var padding: UIEdgeInsets
   var shadowLayer: CAShapeLayer!
