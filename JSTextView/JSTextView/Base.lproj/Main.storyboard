@@ -41,19 +41,10 @@
                                             </paragraphStyle>
                                         </attributes>
                                     </fragment>
-                                    <fragment content="Article I">
+                                    <fragment content="Article I ">
                                         <attributes>
                                             <color key="NSColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
                                             <font key="NSFont" size="18" name="Verdana-Bold"/>
-                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="1.2" paragraphSpacingBefore="12" tailIndent="468" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
-                                                <tabStops/>
-                                            </paragraphStyle>
-                                        </attributes>
-                                    </fragment>
-                                    <fragment content=" ">
-                                        <attributes>
-                                            <color key="NSColor" red="0.13333333333333333" green="0.13333333333333333" blue="0.10196078431372549" alpha="1" colorSpace="calibratedRGB"/>
-                                            <font key="NSFont" size="14.5" name="Verdana-Bold"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" paragraphSpacing="1.2" paragraphSpacingBefore="12" tailIndent="468" defaultTabInterval="36" tighteningFactorForTruncation="0.0">
                                                 <tabStops/>
                                             </paragraphStyle>
