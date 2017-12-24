@@ -15,8 +15,20 @@ class JSTextView: UITextView
     private var jumpLabelArray = [NSRange]()                    //The array of ranges that the user can jump to
     private var jumpLabel      = JumpingLabel()                 //The label that shows up when the jumping starts
     private var startedJumping = false                          //The boolean that tells if the jump has been initiated
-    private var jumpLabelColor = UIColor(red: 26/255.0, green: 140/255.0, blue: 255/255.0, alpha: 1)
-    private var jumpLabelFont  = UIFont.systemFont(ofSize: 20)
+    
+    //CUSTOMIZABLE PUBLIC VARS
+    public var jumpLabelColor = UIColor(red: 26/255.0, green: 140/255.0, blue: 255/255.0, alpha: 1)
+    public var jumpLabelFont  = UIFont.systemFont(ofSize: 20)
+    public var showsIndicatorOnJump:Bool = false
+    {
+        didSet { self.showsVerticalScrollIndicator = showsIndicatorOnJump }
+    }
+    public var jumpLabelPresentDuration: CFTimeInterval = 0.0
+    {
+        didSet { self.jumpingPress.minimumPressDuration = jumpLabelPresentDuration }
+    }
+    public var jumpTextDistanceFromTop  :CGFloat = 40.0
+    public var labelTextDistanceFromEdge:CGFloat = 100.0
     
     //INITIALIZERS
     //init from StoryBoard
@@ -41,8 +53,9 @@ class JSTextView: UITextView
         // Add Long press
         jumpingPress.addTarget(self, action: #selector(handleLongPressGesture))
         jumpingPress.cancelsTouchesInView = false
-        jumpingPress.delegate = self
-        jumpingPress.minimumPressDuration = 0.2
+        jumpingPress.delegate             = self
+        jumpLabelPresentDuration          = 0.2
+        showsIndicatorOnJump              = false
         self.addGestureRecognizer(jumpingPress)
         
         // Make Jump Label
@@ -52,9 +65,10 @@ class JSTextView: UITextView
         jumpLabel.textAlignment         = .left
     }
     
+    //This function provides the jumping feature in which the text jumps to the proper location
     private func scrollToLabel(rect:CGRect, animated:Bool)
     {
-        let newPoint = CGPoint(x: self.contentOffset.x, y: rect.origin.y - 40.0)
+        let newPoint = CGPoint(x: self.contentOffset.x, y: rect.origin.y - jumpTextDistanceFromTop)
         self.setContentOffset(newPoint, animated: false)
     }
     
@@ -82,59 +96,57 @@ class JSTextView: UITextView
                 return;
             }
             
-            //set jump label to size of label text to get the base size of the label
+            let topYPosition    = yPosition + self.frame.minY + jumpLabel.frame.height / 2
+            let bottomYPosition = yPosition + self.frame.minY - jumpLabel.frame.height / 2
             
-            jumpLabel.text = self.text(in: textRange!)
-            jumpLabel.sizeToFit()
-            
-            //set new stylized dimensions of jump label
-            jumpLabel.frame.size.width  = jumpLabel.frame.width + self.frame.width / 6
-            jumpLabel.frame.size.height = jumpLabel.frame.height * 2
-            
-            //update location if location is just changing and not being presented
-            if !begin && yPosition < self.frame.maxY - jumpLabel.frame.height
+            if topYPosition < self.frame.maxY && bottomYPosition > self.frame.minY
             {
-                jumpLabel.frame.origin = CGPoint(x: self.frame.maxX - jumpLabel.frame.width, y: yPosition)
+                //set jump label to size of label text to get the base size of the label
+                jumpLabel.text = self.text(in: textRange!)
+                jumpLabel.sizeToFit()
                 
-                //while the jump label present animation is running jump to the correct location
-                self.scrollToLabel(rect: firstRect(for: textRange!), animated: false)
-            }
-                //if the jump label is being presented
-            else if yPosition < self.frame.maxY - jumpLabel.frame.height
-            {
-                if let superview = self.superview
+                //set new stylized dimensions of jump label
+                jumpLabel.frame.size.width  = jumpLabel.frame.width  + labelTextDistanceFromEdge
+                jumpLabel.frame.size.height = jumpLabel.frame.height * 2
+            
+                //update location if location is just changing and not being presented
+                if !begin
                 {
-                    superview.addSubview(jumpLabel)
+                    jumpLabel.frame.origin = CGPoint(x: self.frame.maxX - self.jumpLabel.frame.width, y: bottomYPosition)
+                    
+                    //while the jump label present animation is running jump to the correct location
+                    self.scrollToLabel(rect: firstRect(for: textRange!), animated: false)
                 }
+                //if the jump label is being presented
                 else
                 {
-                    print("Error loading superview")
-                    return;
-                }
-                
-                //set jump label location to just off the screen
-                jumpLabel.frame.origin = CGPoint(x: self.frame.maxX + jumpLabel.frame.width, y: yPosition)
-                
-                //animate the addition of jump label
-                UIView.animate(withDuration: 0.15, animations:
+                    if let superview = self.superview
                     {
+                        superview.addSubview(jumpLabel)
+                    }
+                    else
+                    {
+                        print("Error loading superview")
+                        return;
+                    }
+                    
+                    //set jump label location to just off the screen
+                    jumpLabel.frame.origin = CGPoint(x: self.frame.maxX + jumpLabel.frame.width, y: bottomYPosition)
+                    
+                    //animate the addition of jump label
+                    UIView.animate(withDuration: 0.15, animations: {
                         //move jump label to the correct location
-                        self.jumpLabel.frame.origin = CGPoint(x: self.frame.maxX - self.jumpLabel.frame.width, y: yPosition)
-                })
-                
-                //while the jump label present animation is running jump to the correct location
-                self.scrollToLabel(rect: firstRect(for: textRange!), animated: false)
-            }
-            else
-            {
-                self.jumpingPress.isEnabled = false
-                self.jumpingPress.isEnabled = true
+                        self.jumpLabel.frame.origin = CGPoint(x: self.frame.maxX - self.jumpLabel.frame.width, y: bottomYPosition)
+                    })
+                    
+                    //while the jump label present animation is running jump to the correct location
+                    self.scrollToLabel(rect: firstRect(for: textRange!), animated: false)
+                }
             }
         }
     }
     
     // PUBLIC FUNCTIONS
-    
     /// This public function allows the user to set the attribute with which the JSTextView creates the labels
     public func setLabelArray<T:Equatable> (attributeName:NSAttributedStringKey, attributeValue:T)
     {
@@ -151,18 +163,7 @@ class JSTextView: UITextView
         })
     }
     
-    public func setJumpLabelColor(newColor:UIColor)
-    {
-        self.jumpLabelColor = newColor
-    }
-    
-    public func setJumpLabelFont(newFont:UIFont)
-    {
-        self.jumpLabelFont = newFont
-    }
-    
     //GESTURE ACTION FUNCTIONS
-    
     @objc func handleLongPressGesture(gesture: UILongPressGestureRecognizer)
     {
         //The x position is found relative to the JSTextView because we want to find the touch location regardless of the superview
@@ -175,6 +176,7 @@ class JSTextView: UITextView
         if jumpingPress.state == .began && xPosition >= self.frame.minX + self.frame.width * 0.9 && xPosition <= self.frame.minX + self.frame.width
         {
             self.startedJumping = true
+            self.showsVerticalScrollIndicator = self.showsIndicatorOnJump
             self.isUserInteractionEnabled = false //disable scrolling
             jumpToValueAt(yPosition: yPosition, begin: true)
         }
@@ -186,20 +188,18 @@ class JSTextView: UITextView
         }
         
         //check if the jumping press state is ending
-        if jumpingPress.state == .ended || jumpingPress.state == .cancelled || jumpingPress.state == .failed
+        else if jumpingPress.state == .ended || jumpingPress.state == .cancelled || jumpingPress.state == .failed
         {
-            UIView.animate(withDuration: 0.15, delay: 0.0, options: [], animations:
-                {
-                    self.jumpLabel.frame.origin = CGPoint(x: self.frame.maxX + self.jumpLabel.frame.width, y: yPosition)
-            },
-                           completion:
-                { //only remove the label once the animation finishes
+            UIView.animate(withDuration: 0.15, delay: 0.0, options: [], animations: {
+                    self.jumpLabel.frame.origin = CGPoint(x: self.frame.maxX + self.jumpLabel.frame.width, y: yPosition +  self.frame.minY)
+            }, completion: { //only remove the label once the animation finishes
                     (completed) in
-                    if completed {self.jumpLabel.removeFromSuperview()}
+                        if completed { self.jumpLabel.removeFromSuperview() }
             })
             
-            self.isUserInteractionEnabled = true //enable scrolling again
-            startedJumping = false
+            self.isUserInteractionEnabled     = true  //enable scrolling again
+            startedJumping                    = false
+            self.showsVerticalScrollIndicator = !showsIndicatorOnJump
         }
     }
     
