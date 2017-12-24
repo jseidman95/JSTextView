@@ -17,7 +17,7 @@ class ViewController: UIViewController
     {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        textView.setLabelArray(attributeName: NSAttributedStringKey.font, attributeValue: UIFont(name: "Verdana-Bold", size: 17.6)!)
+        textView.setLabelArray(attributeName: NSAttributedStringKey.font, attributeValue: UIFont(name: "Times New Roman", size: 43.0)!)
     }
 
     override func didReceiveMemoryWarning() {
