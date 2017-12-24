@@ -14,7 +14,7 @@ class JSTextView: UITextView
 
     private let jumpingPress   = UILongPressGestureRecognizer() //The long press which activates the jump scroll
     private var jumpLabelArray = [NSRange]()                    //The array of ranges that the user can jump to
-    private var jumpLabel      = UILabel()                      //The label that shows up when the jumping starts
+    private var jumpLabel      = JumpingLabel()                 //The label that shows up when the jumping starts
     private var startedJumping = false                          //The boolean that tells if the jump has been initiated
     private var jumpLabelColor = UIColor(red: 26/255.0, green: 140/255.0, blue: 255/255.0, alpha: 1)
     private var jumpLabelFont  = UIFont.systemFont(ofSize: 20)
@@ -55,7 +55,7 @@ class JSTextView: UITextView
         jumpLabel.textAlignment         = .left
     }
   
-    //This function takes a yPosition and boolean as an argument and scrolls the JSTextView to the appropriate location
+    /// This function takes a yPosition and boolean as an argument and scrolls the JSTextView to the appropriate location
     private func jumpToValueAt(yPosition:CGFloat, begin:Bool)
     {
         //calculate the jump location based on screen location
@@ -124,7 +124,7 @@ class JSTextView: UITextView
     
     // PUBLIC FUNCTIONS
  
-    //This public function allows the user to set the attribute with which the JSTextView creates the labels
+    /// This public function allows the user to set the attribute with which the JSTextView creates the labels
     public func setLabelArray<T:Equatable> (attributeName:NSAttributedStringKey, attributeValue:T)
     {
         let storage = self.textStorage
