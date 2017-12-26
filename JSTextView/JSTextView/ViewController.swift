@@ -17,14 +17,10 @@ class ViewController: UIViewController
     {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
-        textView.setLabelArray(attributeName: NSAttributedStringKey.font, attributeValue: UIFont(name: "Times New Roman", size: 43.0)!)
+        textView.appendToLabelArray(attributeName: NSAttributedStringKey.font, attributeValue: UIFont(name: "Times New Roman", size: 43.0)!)
+        let color = UIColor(red: 217/255.0, green: 80/255.0, blue: 0/255.0, alpha: 1.0)
+        textView.appendToLabelArray(attributeName: NSAttributedStringKey.foregroundColor, attributeValue: color)
+        textView.appendToLabelArray(attributeName: NSAttributedStringKey.underlineStyle, attributeValue: NSUnderlineStyle.styleSingle.rawValue)
     }
-
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-
-
 }
 

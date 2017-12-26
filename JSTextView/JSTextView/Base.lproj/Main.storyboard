@@ -36,7 +36,7 @@ Cg
                                     </fragment>
                                     <fragment content="שחרית">
                                         <attributes>
-                                            <color key="NSColor" red="0.80784" green="0.23136999999999999" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                            <color key="NSColor" red="0.85232895612716675" green="0.315651535987854" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <font key="NSFont" size="43" name="TimesNewRomanPS-BoldMT"/>
                                             <real key="NSKern" value="0.0"/>
                                             <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
@@ -68,8 +68,46 @@ Cg
                                             </paragraphStyle>
                                         </attributes>
                                     </fragment>
+                                    <fragment content="אֲדון עולָם אֲשֶׁר מָלַךְ. בְּטֶרֶם כָּל יְצִיר נִבְרָא: לְעֵת נַעֲשה ">
+                                        <attributes>
+                                            <font key="NSFont" size="36" name="TimesNewRomanPSMT"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="בְחֶפְצו כּל">
+                                        <attributes>
+                                            <font key="NSFont" size="36" name="TimesNewRomanPSMT"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <integer key="NSUnderline" value="1"/>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content=". אֲזַי מֶלֶךְ שְׁמו נִקְרָא: חֲרֵי כִּכְלות הַכּל. לְבַדּו יִמְלךְ נורָא: וְהוּא הָ">
+                                        <attributes>
+                                            <font key="NSFont" size="36" name="TimesNewRomanPSMT"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                        </attributes>
+                                    </fragment>
+                                    <fragment content="יָה וְהוּא ">
+                                        <attributes>
+                                            <font key="NSFont" size="36" name="TimesNewRomanPSMT"/>
+                                            <real key="NSKern" value="0.0"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="center" lineBreakMode="wordWrapping" baseWritingDirection="leftToRight" defaultTabInterval="36" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO">
+                                                <tabStops/>
+                                            </paragraphStyle>
+                                            <integer key="NSUnderline" value="1"/>
+                                        </attributes>
+                                    </fragment>
                                     <fragment>
-                                        <mutableString key="content">אֲדון עולָם אֲשֶׁר מָלַךְ. בְּטֶרֶם כָּל יְצִיר נִבְרָא: לְעֵת נַעֲשה בְחֶפְצו כּל. אֲזַי מֶלֶךְ שְׁמו נִקְרָא: חֲרֵי כִּכְלות הַכּל. לְבַדּו יִמְלךְ נורָא: וְהוּא הָיָה וְהוּא הוֶה. וְהוּא יִהְיֶה בְּתִפְאָרָה: וְהוּא אֶחָד וְאֵין שֵׁנִי. לְהַמְשִׁיל לו לְהַחְבִּירָה: בְּלִי רֵאשִׁית בְּלִי תַכְלִית. וְלו הָעז וְהַמִּשרָה: וְהוּא אֵלִי וְחַי גואֲלִי. וְצוּר חֶבְלִי בְּעֵת צָרָה: וְהוּא נִסִּי וּמָנוס לִי. מְנָת כּוסִי בְּיום אֶקְרָא: בְּיָדו אַפְקִיד רוּחִי. בְּעֵת אִישָׁן וְאָעִירָה: וְעִם רוּחִי גְּוִיָּתִי. ה' לִי וְלא אִירָא:</mutableString>
+                                        <mutableString key="content">הוֶה. וְהוּא יִהְיֶה בְּתִפְאָרָה: וְהוּא אֶחָד וְאֵין שֵׁנִי. לְהַמְשִׁיל לו לְהַחְבִּירָה: בְּלִי רֵאשִׁית בְּלִי תַכְלִית. וְלו הָעז וְהַמִּשרָה: וְהוּא אֵלִי וְחַי גואֲלִי. וְצוּר חֶבְלִי בְּעֵת צָרָה: וְהוּא נִסִּי וּמָנוס לִי. מְנָת כּוסִי בְּיום אֶקְרָא: בְּיָדו אַפְקִיד רוּחִי. בְּעֵת אִישָׁן וְאָעִירָה: וְעִם רוּחִי גְּוִיָּתִי. ה' לִי וְלא אִירָא:</mutableString>
                                         <attributes>
                                             <font key="NSFont" size="36" name="TimesNewRomanPSMT"/>
                                             <real key="NSKern" value="0.0"/>
