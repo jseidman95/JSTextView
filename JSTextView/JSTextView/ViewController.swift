@@ -22,7 +22,8 @@ class ViewController: UIViewController
         textView.appendToLabelArray(attributeName: NSAttributedStringKey.foregroundColor, attributeValue: color)
         textView.appendToLabelArray(attributeName: NSAttributedStringKey.underlineStyle, attributeValue: NSUnderlineStyle.styleSingle.rawValue)
         
-        textView.jumpPressEdgeSide = .left
+        textView.jumpPressEdgeSide = .right
+        textView.jumpLabelPresentDuration = 0.05
     }
 }
 
