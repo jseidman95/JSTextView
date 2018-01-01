@@ -8,12 +8,12 @@
 
 import UIKit
 
-enum Edge
+public enum Edge
 {
     case right,left
 }
 
-class JSTextView: UITextView
+public class JSTextView: UITextView
 {
     //PRIVATE VARIABLES
     private let jumpingPress   = UILongPressGestureRecognizer() //The long press which activates the jump scroll
@@ -58,7 +58,7 @@ class JSTextView: UITextView
     
     //INITIALIZERS
     //init from StoryBoard
-    required init?(coder aDecoder: NSCoder)
+    public required init?(coder aDecoder: NSCoder)
     {
         super.init(coder: aDecoder)
         
@@ -66,7 +66,7 @@ class JSTextView: UITextView
     }
     
     //init from code
-    override init(frame: CGRect, textContainer: NSTextContainer?)
+    public override init(frame: CGRect, textContainer: NSTextContainer?)
     {
         super.init(frame: frame, textContainer: textContainer)
         
@@ -281,7 +281,7 @@ class JSTextView: UITextView
 //the extension which ensures that the gestures are recognized in the textview
 extension JSTextView: UIGestureRecognizerDelegate
 {
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+    public func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
                              shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool
     {
         return true
