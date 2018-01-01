@@ -9,18 +9,21 @@
 > Any NSAttributedStringKey can be used to create text tags:
 >> NSAttributedStringKey.font:
 ```swift
-textView.appendToLabelArray(attributeName: NSAttributedStringKey.font, attributeValue: UIFont(name: "Times New Roman", size: 43.0)!)```
+textView.appendToLabelArray(attributeName: NSAttributedStringKey.font, attributeValue: UIFont(name: "Times New Roman", size: 43.0)!)
+```
 >>NSAttributedStringKey.foregroundColor
 ```swift
 textView.appendToLabelArray(attributeName: NSAttributedStringKey.foregroundColor,
 attributeValue: UIColor(red: 217/255.0,
 green: 80/255.0,
 blue: 0/255.0,
-alpha: 1.0))```
+alpha: 1.0))
+```
 >>NSAttributedStringKey.foregroundColor
 ```swift
 textView.appendToLabelArray(attributeName: NSAttributedStringKey.underlineStyle,
-attributeValue: NSUnderlineStyle.styleSingle.rawValue)```
+attributeValue: NSUnderlineStyle.styleSingle.rawValue)
+```
 
 >JSTextView also includes many customizable features
 >>Set custom screen percentage for the jump scroll to be active in:
