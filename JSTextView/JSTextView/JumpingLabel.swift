@@ -8,14 +8,14 @@
 
 import UIKit
 
-class JumpingLabel: UILabel {
+public class JumpingLabel: UILabel {
 
   var padding: UIEdgeInsets
   var edge:Edge = .right
   var shadowLayer: CAShapeLayer!
 
   // Allow padding to be chosen programatically
-  required init(padding: UIEdgeInsets, edge:Edge) {
+  public required init(padding: UIEdgeInsets, edge:Edge) {
     self.padding = padding
     self.edge    = edge
     super.init(frame: CGRect.zero)
@@ -28,16 +28,16 @@ class JumpingLabel: UILabel {
   }
   
   // Create from storyboard
-  required init?(coder aDecoder: NSCoder) {
+  public required init?(coder aDecoder: NSCoder) {
     padding = UIEdgeInsets.zero
     super.init(coder: aDecoder)
   }
   
-  override func drawText(in rect: CGRect) {
+  public override func drawText(in rect: CGRect) {
     super.drawText(in: self.edge == .right ? self.bounds.insetBy(dx: padding.top, dy: padding.left) : self.bounds.insetBy(dx: padding.top, dy: padding.right))
   }
   
-  override func layoutSubviews() {
+  public override func layoutSubviews() {
     self.layoutCornerRadiusAndShadow(corners: self.edge == .right ? [.topLeft,.bottomLeft] : [.topRight, .bottomRight], cornerRadius: 10)
   }
   
