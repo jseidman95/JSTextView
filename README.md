@@ -25,7 +25,7 @@ textView.appendToLabelArray(attributeName: NSAttributedStringKey.underlineStyle,
 attributeValue: NSUnderlineStyle.styleSingle.rawValue)
 ```
 
-JSTextView also includes many customizable features
+JSTextView also includes many customizable features <n>
 Set custom screen percentage for the jump scroll to be active in:
 ```swift
 textView.jumpPressEdgePercentage = 0.2
