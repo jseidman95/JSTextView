@@ -1,5 +1,14 @@
 # JSTextView
 
+![Alt Text](https://user-images.githubusercontent.com/24965132/34464951-304a705a-ee65-11e7-96e2-416b1a0974f2.gif)
+
+
+
+
+
+
+
+
 ## Introduction
 
 This Cocoapod provides a TextView that automatically generates text tags based on NSAttributedString attributes and allows the user to 'Jump Scroll' through the tags by holding the side of the screen and scrolling.  This pod is project with textviews that contain large amount of text.
