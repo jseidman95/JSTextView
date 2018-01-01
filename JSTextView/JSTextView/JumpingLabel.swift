@@ -1,5 +1,5 @@
 //
-//  jumpingLabel.swift
+//  JumpingLabel.swift
 //  JSTextView
 //
 //  Created by Ehud Adler on 11/12/17.
