@@ -7,6 +7,7 @@ This Cocoapod provides a TextView that automatically generates text tags based o
 ## Code Samples
 
 **Any NSAttributedStringKey can be used to create text tags:**
+
 NSAttributedStringKey.font:
 ```swift
 textView.appendToLabelArray(attributeName: NSAttributedStringKey.font, attributeValue: UIFont(name: "Times New Roman", size: 43.0)!)
@@ -26,6 +27,7 @@ attributeValue: NSUnderlineStyle.styleSingle.rawValue)
 ```
 
 **JSTextView also includes many customizable features**
+
 Set custom screen percentage for the jump scroll to be active in:
 ```swift
 textView.jumpPressEdgePercentage = 0.2
