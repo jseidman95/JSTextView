@@ -23,16 +23,22 @@ textView.appendToLabelArray(attributeName: NSAttributedStringKey.font, attribute
 ```
 NSAttributedStringKey.foregroundColor
 ```swift
-textView.appendToLabelArray(attributeName: NSAttributedStringKey.foregroundColor,
-attributeValue: UIColor(red: 217/255.0,
-green: 80/255.0,
-blue: 0/255.0,
-alpha: 1.0))
+  textView.appendToLabelArray(
+    attributeName: NSAttributedStringKey.foregroundColor,
+    attributeValue: UIColor(
+      red: 217/255.0,
+      green: 80/255.0,
+      blue: 0/255.0,
+      alpha: 1.0
+     )
+  )
 ```
 NSAttributedStringKey.foregroundColor
 ```swift
-textView.appendToLabelArray(attributeName: NSAttributedStringKey.underlineStyle,
-attributeValue: NSUnderlineStyle.styleSingle.rawValue)
+  textView.appendToLabelArray(
+    attributeName: NSAttributedStringKey.underlineStyle,
+    attributeValue: NSUnderlineStyle.styleSingle.rawValue
+  )
 ```
 
 **JSTextView also includes many customizable features**
