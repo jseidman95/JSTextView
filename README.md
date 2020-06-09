@@ -19,7 +19,10 @@ This Cocoapod provides a TextView that automatically generates text tags based o
 
 NSAttributedStringKey.font:
 ```swift
-textView.appendToLabelArray(attributeName: NSAttributedStringKey.font, attributeValue: UIFont(name: "Times New Roman", size: 43.0)!)
+  textView.appendToLabelArray(
+    attributeName: NSAttributedStringKey.font,
+    attributeValue: UIFont(name: "Times New Roman", size: 43.0)!
+  )
 ```
 NSAttributedStringKey.foregroundColor
 ```swift
